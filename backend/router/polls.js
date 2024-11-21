@@ -1,7 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const requireAuth = require('../middleware/requireAuth')
 const { getPolls, getPoll, createPoll, deletePoll, updatePoll } = require('../controller/pollController')
 
+const router = express.Router();
+
+// authorization check
+router.use(requireAuth);
 // GET all polls
 router.get('/', getPolls);
 
