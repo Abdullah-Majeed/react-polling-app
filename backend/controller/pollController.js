@@ -72,5 +72,26 @@ const updatePoll = async (req, res) => {
     }
     return res.status(200).json(poll);
 }
+const updatePollVote = async (req, res) => {
+    const { id } = req.params;
+    const { optionText } = req.body;
+    if (!optionText) {
+        return res.status(404).json({ error: 'option text not found!' });
+    }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such poll' });
+    }
+    try {
+        const poll = await Poll.findOneAndUpdate({ _id: id, 'options.text': optionText }, { $inc: { 'options.$.vote': 1 } },         // Increment votes for the matched option
+            { new: true })
+        if (!poll) {
+            return res.status(404).json({ error: 'No such poll' });
+        }
+        return res.status(200).json(poll);
+    }
+    catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+}
 
-module.exports = { getPolls, getPoll, createPoll, deletePoll, updatePoll }
+module.exports = { getPolls, getPoll, createPoll, deletePoll, updatePoll, updatePollVote }

@@ -7,15 +7,19 @@ const pollSchema = new Schema({
         required: true,
         trim: true,
     },
-    options: {
-        type: [String],
-        required: true,
-        validate: {
-            validator: (options) => {
-                return options.length >= 2 && options.length <= 5
+    options: [
+        {
+            text: {
+                type: String,
+                required: true,
+            },
+            vote: {
+                type: Number,
+                default: 0
             }
         }
-    },
+    ]
+    ,
     image: {
         type: String,
         required: true,
