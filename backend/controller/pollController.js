@@ -1,7 +1,13 @@
 const Poll = require('../models/pollModel');
 const mongoose = require('mongoose');
 // get all polls
-const getPolls = async (req, res) => {
+
+const getAllPolls = async (req, res) => {
+    const polls = await Poll.find({}).sort({ createdAt: -1 });
+    res.status(200).json(polls);
+}
+// get user polls
+const getUserPolls = async (req, res) => {
     const user_id = req.user._id;
     const polls = await Poll.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(polls);
@@ -94,4 +100,4 @@ const updatePollVote = async (req, res) => {
     }
 }
 
-module.exports = { getPolls, getPoll, createPoll, deletePoll, updatePoll, updatePollVote }
+module.exports = { getAllPolls, getUserPolls, getPoll, createPoll, deletePoll, updatePoll, updatePollVote }

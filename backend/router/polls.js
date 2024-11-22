@@ -1,16 +1,20 @@
 const express = require('express');
 const requireAuth = require('../middleware/requireAuth')
-const { getPolls, getPoll, createPoll, deletePoll, updatePoll, updatePollVote } = require('../controller/pollController')
+const { getAllPolls, getUserPolls, getPoll, createPoll, deletePoll, updatePoll, updatePollVote } = require('../controller/pollController')
 
 const router = express.Router();
 
 // Vote api
 router.patch('/vote/:id', updatePollVote);
+router.get('/all', getAllPolls)
+
+// GET all polls
+
 
 // authorization check
 router.use(requireAuth);
-// GET all polls
-router.get('/', getPolls);
+
+router.get('/', getUserPolls);
 
 // GET a single poll
 router.get('/:id', getPoll);
