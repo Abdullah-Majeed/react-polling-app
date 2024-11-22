@@ -7,6 +7,9 @@
   --error: #e7195a;
   ---success: green;
 }
+.form-group {
+  margin-bottom: 15px;
+}
 
 body {
   background: #f1f1f1;

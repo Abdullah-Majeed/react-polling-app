@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { usePollContext } from '../context/PollContext';
 import { useAuthContext } from '../context/AuthContext';
 import HomePollDetails from '../components/HomePollDetails';
+import PollForm from '../components/PollForm';
 const Home = () => {
   const { polls, dispatch } = usePollContext();
   const { user } = useAuthContext();
@@ -9,7 +10,7 @@ const Home = () => {
     const fetchPolls = async () => {
       const response = await fetch('http://localhost:4000/api/polls', {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${user.token}`},
+        headers: { 'Authorization': `Bearer ${user.token}` },
       });
       const json = await response.json();
 
@@ -28,6 +29,7 @@ const Home = () => {
           <HomePollDetails key={poll._id} poll={poll} />
         ))}
       </div>
+      <PollForm />
     </div>
   )
 }
