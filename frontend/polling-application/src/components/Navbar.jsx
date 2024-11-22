@@ -9,7 +9,7 @@ const Navbar = () => {
     <header>
       <div className='container'>
         <Link to="/">
-          <h1>Polling Application</h1>
+          <h1>Vote Polling</h1>
         </Link>
         <nav>
           {user && (
@@ -19,7 +19,7 @@ const Navbar = () => {
             </div>
           )}
           {!user && (<div>
-            <Link to='/vote'>Voting polls</Link>
+            <Link to='/vote'>Polls</Link>
             <Link to='/login'>Login</Link>
             <Link to='/signup'>Signup</Link>
           </div>)}
