@@ -14,10 +14,10 @@ const App = () => {
         <Navbar />
         <div className='pages'>
           <Routes>
-            <Route path='/' element={user ? <Home /> : <Navigate to='/vote' />} />
+            <Route path='/' element={user ? <Home /> : <Navigate to='/login' />} />
             <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
             <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
-            <Route path='/vote' element={<VotePolling />} />
+            <Route path='/vote' element={!user ? <VotePolling /> : <Navigate to='/' />} />
           </Routes>
         </div>
       </BrowserRouter>

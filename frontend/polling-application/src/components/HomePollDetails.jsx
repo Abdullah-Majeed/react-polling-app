@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { usePollVote } from '../hooks/usePollVote';
-const PollDetails = ({ poll }) => {
+const HomePollDetails = ({ poll }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedPollId, setSelectedPollId] = useState(null);
     const { pollVote, error, sucess, isLoading } = usePollVote();
@@ -39,4 +39,4 @@ const PollDetails = ({ poll }) => {
     )
 }
 
-export default PollDetails
+export default HomePollDetails

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { usePollContext } from '../context/PollContext';
-import PollDetails from './PollDetails';
+import PollDetails from '../components/PollDetails';
 const VotePolling = () => {
   const { polls, dispatch } = usePollContext();
   useEffect(() => {
