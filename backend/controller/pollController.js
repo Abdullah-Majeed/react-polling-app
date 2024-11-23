@@ -103,16 +103,55 @@ const deletePoll = async (req, res) => {
 
 const updatePoll = async (req, res) => {
     const { id } = req.params;
+    const { question, options, image } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'No such poll' });
     }
-    const poll = await Poll.findOneAndUpdate({ _id: id }, {
-        ...req.body
-    })
-    if (!poll) {
-        return res.status(404).json({ error: 'No such poll' });
+    const oldImage = await Poll.findOne({ _id: id }).select('image');
+
+    if (image !== oldImage) {
+        const matches = image.match(/^data:(.+);base64,(.+)$/);
+        if (!matches || matches.length !== 3) {
+            return res.status(400).json({ error: 'Invalid poll image.' });
+        }
+        const mimeType = matches[1];
+        const base64Data = matches[2];
+        const fileExtension = mimeType.split('/')[1];
+
+        // Save Base64 data to a temporary file
+        const tempFilePath = path.join(__dirname, `temp_image.${fileExtension}`);
+        fs.writeFileSync(tempFilePath, Buffer.from(base64Data, 'base64'));
+
+        // Optimize image using TinyPNG
+        const source = tinify.fromFile(tempFilePath);
+        const compressedFilePath = path.join(__dirname, `compressed_image.${fileExtension}`);
+        await source.toFile(compressedFilePath);
+
+        // Convert compressed image to Base64
+        const compressedImageData = fs.readFileSync(compressedFilePath);
+        const compressedBase64 = `data:${mimeType};base64,${compressedImageData.toString('base64')}`;
+
+        // Clean up temporary files
+        fs.unlinkSync(tempFilePath);
+        fs.unlinkSync(compressedFilePath);
+        const poll = await Poll.findOneAndUpdate({ _id: id }, {
+            question, options, image: compressedBase64
+        })
+        if (!poll) {
+            return res.status(404).json({ error: 'No such poll' });
+        }
+        return res.status(200).json(poll);
     }
-    return res.status(200).json(poll);
+    else {
+        const poll = await Poll.findOneAndUpdate({ _id: id }, {
+            ...req.body
+        })
+        if (!poll) {
+            return res.status(404).json({ error: 'No such poll' });
+        }
+        return res.status(200).json(poll);
+    }
+
 }
 const updatePollVote = async (req, res) => {
     const { id } = req.params;

@@ -3,7 +3,6 @@ import { usePollVote } from '../hooks/usePollVote';
 import { formatDistanceToNow } from 'date-fns'
 const PollDetails = ({ poll }) => {
     const [selectedOption, setSelectedOption] = useState('');
-    const [selectedPollId, setSelectedPollId] = useState(null);
     const { pollVote, error, sucess, isLoading } = usePollVote();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,9 +14,8 @@ const PollDetails = ({ poll }) => {
         await pollVote(poll._id, optionText);
         setSelectedOption("");
     }
-    const handleChange = (e, option) => {
+    const handleChange = (e) => {
         setSelectedOption(e.target.value);
-        setSelectedPollId(option._id);
     }
     return (
         <div className='poll-details'>
@@ -33,7 +31,7 @@ const PollDetails = ({ poll }) => {
             <form onSubmit={handleSubmit}>
                 {poll.options.map((option) => (
                     <div key={option.text} style={{ display: 'flex', alignItems: 'center' }}>
-                        <input style={{ width: '1%', margin: '0px', padding: '0px' }} type='radio' id={option.text} name="poll" checked={selectedOption === option.text} value={option.text} onChange={(e) => handleChange(e, option)} />
+                        <input style={{ width: '1%', margin: '0px', padding: '0px' }} type='radio' id={option.text} name="poll" checked={selectedOption === option.text} value={option.text} onChange={(e) => handleChange(e)} />
                         <label htmlFor={option.text} style={{ marginLeft: '8px' }}>{option.text}</label><br />
                     </div>
                 ))}

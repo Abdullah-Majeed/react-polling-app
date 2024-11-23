@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePollContext } from '../context/PollContext';
 import { useAuthContext } from '../context/AuthContext';
 import HomePollDetails from '../components/HomePollDetails';
 import PollForm from '../components/PollForm';
+import EditPollForm from '../components/EditPollForm';
 const Home = () => {
   const { polls, dispatch } = usePollContext();
   const { user } = useAuthContext();
+  const [isEdit, setIsEdit] = useState(false);
+  const [editData, setEditData] = useState(null);
   useEffect(() => {
     const fetchPolls = async () => {
       const response = await fetch('http://localhost:4000/api/polls', {
@@ -26,10 +29,10 @@ const Home = () => {
     <div className='home'>
       <div className='polls'>
         {polls && polls.map((poll) => (
-          <HomePollDetails key={poll._id} poll={poll} />
+          <HomePollDetails key={poll._id} poll={poll} setEditData={setEditData} setIsEdit={setIsEdit} />
         ))}
       </div>
-      <PollForm />
+      {isEdit ? <EditPollForm editData={editData} setEditData={setEditData} setIsEdit={setIsEdit} /> : <PollForm />}
     </div>
   )
 }

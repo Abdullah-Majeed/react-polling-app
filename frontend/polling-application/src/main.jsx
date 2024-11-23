@@ -7,10 +7,10 @@ import PollContextProvider from './context/PollContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthContextProvider>
-      <PollContextProvider>
+    <PollContextProvider>
+      <AuthContextProvider>
         <App />
-      </PollContextProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </PollContextProvider>
   </StrictMode>,
 )
