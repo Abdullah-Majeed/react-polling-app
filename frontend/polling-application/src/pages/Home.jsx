@@ -24,7 +24,7 @@ const Home = () => {
   }, [dispatch, user, polls])
   return (
     <div className='home'>
-      <div className='workouts'>
+      <div className='polls'>
         {polls && polls.map((poll) => (
           <HomePollDetails key={poll._id} poll={poll} />
         ))}

@@ -44,7 +44,7 @@ const HomePollDetails = ({ poll }) => {
         return total;
     };
     return (
-        <div className='workout-details'>
+        <div className='poll-details'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img
                     src={poll.image}
@@ -54,7 +54,7 @@ const HomePollDetails = ({ poll }) => {
                 <h4 style={{ marginLeft: '8px' }}>{poll.question}</h4>
 
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{marginTop:'8px'}}>
                 {poll.options.map((option) => (
                     <div key={option.text} style={{ display: 'flex', alignItems: 'center' }}>
                         <input style={{ width: '1%', margin: '0px', padding: '0px' }} type='radio' id={option.text} name="poll" checked={selectedOption === option.text} value={option.text} onChange={(e) => handleChange(e, option)} />
@@ -66,7 +66,7 @@ const HomePollDetails = ({ poll }) => {
                 {sucess && <div className='success'>{sucess}</div>}
             </form>
             {/* <p>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p> */}
-            <p>Total Votes: {totalVotes(poll)}</p>
+            <p style={{ marginTop: '8px' }}>Total Votes: {totalVotes(poll)}</p>
             <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )

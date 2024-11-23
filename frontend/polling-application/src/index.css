@@ -48,7 +48,7 @@ header a {
   gap: 100px;
 }
 
-.workout-details {
+.poll-details {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -57,19 +57,19 @@ header a {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.workout-details h4 {
+.poll-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
 
-.workout-details p {
-  margin: 0;
+.poll-details p {
+  margin: '8px';
   font-size: 0.9em;
   color: #555;
 }
 
-.workout-details span {
+.poll-details span {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -80,7 +80,7 @@ header a {
   color: #333;
 }
 
-/* new workout form */
+/* new poll form */
 label,
 input {
   display: block;

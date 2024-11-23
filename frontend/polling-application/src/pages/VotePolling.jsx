@@ -14,10 +14,10 @@ const VotePolling = () => {
 
     }
     fetchPolls();
-  }, [dispatch])
+  }, [dispatch, polls])
   return (
     <div className='home'>
-      <div className='workouts'>
+      <div className='polls'>
         {polls && polls.map((poll) => (
           <PollDetails key={poll._id} poll={poll} />
         ))}

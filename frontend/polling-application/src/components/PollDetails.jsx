@@ -19,7 +19,7 @@ const PollDetails = ({ poll }) => {
         setSelectedPollId(option._id);
     }
     return (
-        <div className='workout-details'>
+        <div className='poll-details'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img
                     src={poll.image}
