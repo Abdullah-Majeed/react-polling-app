@@ -1,10 +1,11 @@
 import { useState } from "react"
+import { usePollContext } from "../context/PollContext";
 
 export const usePollVote = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const [sucess, setSucess] = useState(null);
-
+    const { dispatch } = usePollContext();
     const pollVote = async (id, optionText) => {
         setIsLoading(true);
         setError(null);
@@ -21,6 +22,7 @@ export const usePollVote = () => {
             setIsLoading(false);
         }
         if (response.ok) {
+            dispatch({ type: 'UPDATE_POLL', payload: json })
             setSucess("Vote submitted successfully");
             setIsLoading(false);
         }

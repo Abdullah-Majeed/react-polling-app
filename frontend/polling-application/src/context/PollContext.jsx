@@ -14,6 +14,12 @@ export const pollReducer = (state, action) => {
             return { polls: [action.payload, ...state.polls] }
         case 'DELETE_POLL':
             return { polls: state.polls.filter((each) => each._id !== action.payload._id) }
+        case 'UPDATE_POLL':
+            return {
+                polls: state.polls.map((each) =>
+                    each._id === action.payload._id ? { ...each, ...action.payload } : each
+                )
+            }
         default:
             return state
     }

@@ -21,7 +21,7 @@ const Home = () => {
     if (user) {
       fetchPolls();
     }
-  }, [dispatch, user])
+  }, [dispatch, user, polls])
   return (
     <div className='home'>
       <div className='workouts'>

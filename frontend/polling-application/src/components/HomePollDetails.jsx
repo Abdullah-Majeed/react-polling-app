@@ -20,7 +20,7 @@ const HomePollDetails = ({ poll }) => {
             }
         })
         const json = await response.json()
-        
+
         if (response.ok) {
             dispatch({ type: 'DELETE_POLL', payload: json })
         }
@@ -39,6 +39,10 @@ const HomePollDetails = ({ poll }) => {
     const handleChange = (e, option) => {
         setSelectedOption(e.target.value);
     }
+    const totalVotes = (eachPoll) => {
+        const total = eachPoll.options.reduce((sum, each) => sum + each.vote, 0);
+        return total;
+    };
     return (
         <div className='workout-details'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -62,6 +66,7 @@ const HomePollDetails = ({ poll }) => {
                 {sucess && <div className='success'>{sucess}</div>}
             </form>
             {/* <p>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p> */}
+            <p>Total Votes: {totalVotes(poll)}</p>
             <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
