@@ -20,7 +20,15 @@ const PollDetails = ({ poll }) => {
     }
     return (
         <div className='workout-details'>
-            <h4>{poll.question}</h4>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img
+                    src={poll.image}
+                    alt="Poll image"
+                    style={{ maxWidth: '50px', border: '1px solid #ccc' }}
+                />
+                <h4 style={{ marginLeft: '8px' }}>{poll.question}</h4>
+
+            </div>
             <form onSubmit={handleSubmit}>
                 {poll.options.map((option) => (
                     <div key={option.text} style={{ display: 'flex', alignItems: 'center' }}>

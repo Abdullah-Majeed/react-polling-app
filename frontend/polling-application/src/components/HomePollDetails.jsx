@@ -1,10 +1,31 @@
 import React, { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { usePollVote } from '../hooks/usePollVote';
+import { useAuthContext } from '../context/AuthContext';
+import { usePollContext } from '../context/PollContext';
 const HomePollDetails = ({ poll }) => {
     const [selectedOption, setSelectedOption] = useState('');
-    const [selectedPollId, setSelectedPollId] = useState(null);
     const { pollVote, error, sucess, isLoading } = usePollVote();
+    const { user } = useAuthContext();
+    const { dispatch } = usePollContext();
+    const handleClick = async () => {
+        if (!user) {
+            return
+        }
+
+        const response = await fetch('http://localhost:4000/api/polls/' + poll._id, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        const json = await response.json()
+
+        if (response.ok) {
+            dispatch({ type: 'DELETE_POLL', payload: json })
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const optionText = selectedOption
@@ -17,7 +38,6 @@ const HomePollDetails = ({ poll }) => {
     }
     const handleChange = (e, option) => {
         setSelectedOption(e.target.value);
-        setSelectedPollId(option._id);
     }
     return (
         <div className='workout-details'>
@@ -27,7 +47,7 @@ const HomePollDetails = ({ poll }) => {
                     alt="Poll image"
                     style={{ maxWidth: '50px', border: '1px solid #ccc' }}
                 />
-                <h4 style={{marginLeft: '8px'}}>{poll.question}</h4>
+                <h4 style={{ marginLeft: '8px' }}>{poll.question}</h4>
 
             </div>
             <form onSubmit={handleSubmit}>
@@ -42,7 +62,7 @@ const HomePollDetails = ({ poll }) => {
                 {sucess && <div className='success'>{sucess}</div>}
             </form>
             {/* <p>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p> */}
-            {/* <span className="material-symbols-outlined">delete</span> */}
+            <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
 }
