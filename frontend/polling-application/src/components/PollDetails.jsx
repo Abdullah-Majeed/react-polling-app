@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { usePollVote } from '../hooks/usePollVote';
+import { formatDistanceToNow } from 'date-fns'
 const PollDetails = ({ poll }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedPollId, setSelectedPollId] = useState(null);
@@ -40,6 +41,7 @@ const PollDetails = ({ poll }) => {
                 {error && <div className='error'>{error}</div>}
                 {sucess && <div className='success'>{sucess}</div>}
             </form>
+            <p style={{ marginTop: '8px' }}>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p>
         </div>
     )
 }

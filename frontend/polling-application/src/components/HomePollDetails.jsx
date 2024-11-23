@@ -45,28 +45,28 @@ const HomePollDetails = ({ poll }) => {
     };
     return (
         <div className='poll-details'>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center'}}>
                 <img
                     src={poll.image}
                     alt="Poll image"
                     style={{ maxWidth: '50px', border: '1px solid #ccc' }}
                 />
                 <h4 style={{ marginLeft: '8px' }}>{poll.question}</h4>
-
             </div>
-            <form onSubmit={handleSubmit} style={{marginTop:'8px'}}>
+            <div style={{ marginTop: '8px' }}>
                 {poll.options.map((option) => (
                     <div key={option.text} style={{ display: 'flex', alignItems: 'center' }}>
                         <input style={{ width: '1%', margin: '0px', padding: '0px' }} type='radio' id={option.text} name="poll" checked={selectedOption === option.text} value={option.text} onChange={(e) => handleChange(e, option)} />
                         <label htmlFor={option.text} style={{ marginLeft: '8px' }}>{option.text}</label><br />
                     </div>
                 ))}
-                <button disabled={isLoading} style={{ marginTop: '8px' }}>Submit</button>
+                <button onClick={handleSubmit} disabled={isLoading} style={{ marginTop: '8px' }}>Submit</button>
+                <button disabled={isLoading} style={{ marginTop: '8px',marginLeft:'8px' }}>Edit</button>
                 {error && <div className='error'>{error}</div>}
                 {sucess && <div className='success'>{sucess}</div>}
-            </form>
-            {/* <p>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p> */}
-            <p style={{ marginTop: '8px' }}>Total Votes: {totalVotes(poll)}</p>
+            </div>
+            <p style={{ marginTop: '8px',fontWeight:'bold' }}>Total Votes: {totalVotes(poll)}</p>
+            <p style={{ marginTop: '8px' }}>Created {formatDistanceToNow(new Date(poll.createdAt), { addSuffix: true })}</p>
             <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
