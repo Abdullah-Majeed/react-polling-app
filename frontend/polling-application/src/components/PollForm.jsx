@@ -10,9 +10,11 @@ const PollForm = () => {
     const [question, setQuestion] = useState('');
     const [image, setImage] = useState('');
     const [emptyFields, setEmptyFields] = useState([])
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const maxOptions = 5;
     const fileInputRef = useRef(null);
+    const [result, setResult] = useState(null);
 
     const toBase64 = (file) =>
         new Promise((resolve, reject) => {
@@ -49,8 +51,10 @@ const PollForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
         setError(null);
         setEmptyFields([]);
+        setResult(null);
 
         if (!user) {
             setError('You must be logged in')
@@ -61,9 +65,6 @@ const PollForm = () => {
             return { text: option }
         })
         const poll = { question, options: optionsList, image };
-
-        console.log(poll)
-
         const response = await fetch('http://localhost:4000/api/polls', {
             method: 'POST',
             body: JSON.stringify(poll),
@@ -72,22 +73,25 @@ const PollForm = () => {
                 'Authorization': `Bearer ${user.token}`
             }
         })
-        const json = await response.json()
+        const json = await response.json();
         if (!response.ok) {
             setError(json.error)
             setEmptyFields(json.emptyFields)
+            setIsLoading(false)
         }
         if (response.ok) {
             // https://stackoverflow.com/questions/42192346/how-to-reset-reactjs-file-input
             if (fileInputRef.current) {
-                fileInputRef.current.value = ''; 
+                fileInputRef.current.value = '';
             }
             setQuestion('');
             setOptions(["", ""])
             setImage('');
             setError(null)
             setEmptyFields([])
-            dispatch({ type: 'CREATE_POLL', payload: json })
+            setIsLoading(false)
+            setResult({ originalSize: json.message.originalSize, compressedSize: json.message.compressedSize })
+            dispatch({ type: 'CREATE_POLL', payload: json.message.poll })
         }
     };
     return (
@@ -142,8 +146,10 @@ const PollForm = () => {
                 />
             </div>
 
-            <button type="submit">Submit</button>
+            <button disabled={isLoading} type="submit">Submit</button>
             {error && <div className="error">{error}</div>}
+            {isLoading && <div className="">Creating poll...</div>}
+            {result && <div className="">Original size: {result.originalSize} -  Compressed size: {result.compressedSize}</div>}
         </form>
     )
 }

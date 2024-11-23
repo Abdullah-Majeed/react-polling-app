@@ -20,7 +20,7 @@ const HomePollDetails = ({ poll }) => {
             }
         })
         const json = await response.json()
-
+        
         if (response.ok) {
             dispatch({ type: 'DELETE_POLL', payload: json })
         }
