@@ -114,6 +114,13 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+div.success {
+  padding: 10px;
+  border: 1px solid var(---success);
+  color: var(---success);
+  border-radius: 4px;
+  margin: 20px 0;
+}
 
 input.error {
   border: 1px solid var(--error);
