@@ -30,7 +30,7 @@ Clone the repository to your local machine:
     cd backend
 ```
 
-## 2.2 Create .env File in root of backend folder and add thsee configuration
+## 2.2 Create .env File in root of backend folder and add these configuration
 ```bash
     PORT_NO=YOUR_PORT_NUMBER # Default: 4000
     MONGO_URI=YOUR_DATABASE_URI
@@ -60,11 +60,8 @@ Clone the repository to your local machine:
 ```bash
     npm install
 ```
-## 3.2 Run command to install packages
-```bash
-    npm install
-```
-## 3.3 Run command to start REACT APP on your machine PORT 5173
+
+## 3.3 Run command to start react application on your machine PORT 5173
 ```bash
     npm run dev
 ```
