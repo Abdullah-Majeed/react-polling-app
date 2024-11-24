@@ -29,7 +29,15 @@ const Home = () => {
       fetchPolls();
     }
   }, [dispatch, user, polls])
-  
+  if (polls === null || polls.length === 0) {
+    return (
+      <div className='home'>
+        <div className='polls'>
+          <h3 style={{ height: '50vh', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>Create a new poll and let the voting begin!</h3>
+        </div>
+        {isEdit ? <EditPollForm editData={editData} setEditData={setEditData} setIsEdit={setIsEdit} /> : <PollForm />}
+      </div>)
+  }
   return (
     <div className='home'>
       <div className='polls'>

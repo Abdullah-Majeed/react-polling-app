@@ -17,6 +17,9 @@ const VotePolling = () => {
     }
     fetchPolls();
   }, [dispatch, polls])
+  if (polls.length === 0) {
+    return <h3 style={{ height: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Oops! No polls available at the moment. Please check back later!</h3>
+  }
   return (
     <div className='home'>
       <div className='polls'>

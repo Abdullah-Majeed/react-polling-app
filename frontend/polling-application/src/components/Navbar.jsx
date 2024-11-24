@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
 import { useLogout } from '../hooks/useLogout';
 const Navbar = () => {
@@ -21,9 +21,9 @@ const Navbar = () => {
             </div>
           )}
           {!user && (<div>
-            <Link to='/vote'>Polls</Link>
-            <Link to='/login'>Login</Link>
-            <Link to='/signup'>Signup</Link>
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to='/vote'>Polls</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to='/login'>Login</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to='/signup'>Signup</NavLink>
           </div>)}
         </nav>
       </div>
