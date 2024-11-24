@@ -4,6 +4,7 @@ import { usePollVote } from '../hooks/usePollVote';
 import { useAuthContext } from '../context/AuthContext';
 import { usePollContext } from '../context/PollContext';
 const HomePollDetails = ({ poll, setEditData, setIsEdit }) => {
+    // POLL DETAILS
     const [selectedOption, setSelectedOption] = useState('');
     const { pollVote, error, sucess, isLoading } = usePollVote();
     const { user } = useAuthContext();

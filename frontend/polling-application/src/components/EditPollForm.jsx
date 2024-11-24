@@ -4,6 +4,7 @@ import { usePollContext } from '../context/PollContext';
 
 
 const EditPollForm = ({ editData, setEditData, setIsEdit }) => {
+    // EDIT POLL FORM
     const { user } = useAuthContext();
     const { dispatch } = usePollContext();
 

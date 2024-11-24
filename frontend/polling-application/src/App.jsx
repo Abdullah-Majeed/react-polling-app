@@ -15,9 +15,13 @@ const App = () => {
         <Navbar />
         <div className='pages'>
           <Routes>
+            {/* HOME */}
             <Route path='/' element={user ? <Home /> : <Navigate to='/login' />} />
+            {/* LOGIN */}
             <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
+            {/* SIGNUP */}
             <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
+            {/* ANONYMOUS VOTING */}
             <Route path='/vote' element={!user ? <VotePolling /> : <Navigate to='/' />} />
           </Routes>
         </div>

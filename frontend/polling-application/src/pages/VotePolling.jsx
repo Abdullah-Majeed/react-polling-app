@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { usePollContext } from '../context/PollContext';
 import PollDetails from '../components/PollDetails';
 const VotePolling = () => {
+  // ANONYMOUS VOTING PAGE
   const { polls, dispatch } = usePollContext();
 
   // FETCHING UNAUTHORIZED POLLS DATA FOR VOTE

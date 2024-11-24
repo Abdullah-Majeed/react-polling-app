@@ -29,6 +29,8 @@ const Home = () => {
       fetchPolls();
     }
   }, [dispatch, user, polls])
+  
+  // IF NO POLLS FOUND CHECK
   if (polls === null || polls.length === 0) {
     return (
       <div className='home'>
