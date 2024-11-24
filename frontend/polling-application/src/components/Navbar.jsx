@@ -9,7 +9,7 @@ const Navbar = () => {
     <header>
       <div className='container'>
         <Link to="/">
-          <h1>Vote Polling</h1>
+          <h1>Polling App</h1>
         </Link>
         <nav>
           {user && (
