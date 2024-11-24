@@ -48,7 +48,7 @@ Clone the repository to your local machine:
     npm run dev
 ```
 
-## 3. Steps to run React Application
+## 3. Steps to run react application
 
 ## 3.1 Enter command on cmd terminal
 ```bash
