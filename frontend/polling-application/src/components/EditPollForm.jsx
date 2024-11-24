@@ -15,7 +15,8 @@ const EditPollForm = ({ editData, setEditData, setIsEdit }) => {
     const [isLoading, setIsLoading] = useState(false);
     const maxOptions = 5;
     const fileInputRef = useRef(null);
-
+   
+    // UPDATE INITAL DATA
     useEffect(() => {
         if (editData) {
             const optionList = editData.options.map((each) => each.text);
@@ -24,6 +25,8 @@ const EditPollForm = ({ editData, setEditData, setIsEdit }) => {
             setImage(editData.image);
         }
     }, [editData])
+  
+    // BASE64 CONVERT FUNCTION
     const toBase64 = (file) =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -56,6 +59,7 @@ const EditPollForm = ({ editData, setEditData, setIsEdit }) => {
         }
     };
 
+    // SUBMIT EDIT FUNCTION
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);

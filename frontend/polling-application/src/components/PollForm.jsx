@@ -3,6 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import { usePollContext } from '../context/PollContext';
 
 const PollForm = () => {
+    // CREATE NEW POLL FORM
     const { user } = useAuthContext();
     const { dispatch } = usePollContext();
 
@@ -15,7 +16,8 @@ const PollForm = () => {
     const maxOptions = 5;
     const fileInputRef = useRef(null);
     const [result, setResult] = useState(null);
-
+    
+    // BASE64 CONVERT FUNCTION
     const toBase64 = (file) =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -49,6 +51,7 @@ const PollForm = () => {
         }
     };
 
+    // CREATE NEW POLL FUNCTION
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);

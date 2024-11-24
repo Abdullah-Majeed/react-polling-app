@@ -4,13 +4,13 @@ const { getAllPolls, getUserPolls, getPoll, createPoll, deletePoll, updatePoll, 
 
 const router = express.Router();
 
-// VOTING API WITHOUT AUTORIZATION
+// VOTING API WITHOUT AUTHORIZATION
 router.patch('/vote/:id', updatePollVote);
 
-// GET ALL POLLS WITH AUTORIZATION
+// GET ALL POLLS WITH AUTHORIZATION
 router.get('/all', getAllPolls)
 
-// AUTORIZATION MIDDLEWARE
+// AUTHORIZATION MIDDLEWARE
 router.use(requireAuth);
 
 // GET AUTHENTICATED USER POLLS

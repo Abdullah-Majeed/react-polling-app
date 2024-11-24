@@ -6,6 +6,8 @@ export const usePollVote = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [sucess, setSucess] = useState(null);
     const { dispatch } = usePollContext();
+
+    // POLL VOTE CAST FUNCTION
     const pollVote = async (id, optionText) => {
         setIsLoading(true);
         setError(null);

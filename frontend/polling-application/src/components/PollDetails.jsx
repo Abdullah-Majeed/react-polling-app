@@ -4,6 +4,8 @@ import { formatDistanceToNow } from 'date-fns'
 const PollDetails = ({ poll }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const { pollVote, error, sucess, isLoading } = usePollVote();
+  
+    // SUBMIT VOTE FUNCTION 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const optionText = selectedOption

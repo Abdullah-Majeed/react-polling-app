@@ -7,7 +7,7 @@ const tinify = require("tinify");
 // TINY PNG API KEY
 tinify.key = process.env.TINIFY_KEY;
 
-// GET ALL POLLS WITHOUT AUTORIZATION
+// GET ALL POLLS WITHOUT AUTHORIZATION
 const getAllPolls = async (req, res) => {
     const polls = await Poll.find({}).sort({ createdAt: -1 });
     res.status(200).json(polls);
@@ -165,7 +165,7 @@ const updatePoll = async (req, res) => {
 
 }
 
-// UPDATE UNAUTORIZED POLL VOTE
+// UPDATE UNAUTHORIZED POLL VOTE
 const updatePollVote = async (req, res) => {
     const { id } = req.params;
     const { optionText } = req.body;

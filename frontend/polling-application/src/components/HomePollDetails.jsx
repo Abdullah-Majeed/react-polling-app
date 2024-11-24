@@ -8,10 +8,13 @@ const HomePollDetails = ({ poll, setEditData, setIsEdit }) => {
     const { pollVote, error, sucess, isLoading } = usePollVote();
     const { user } = useAuthContext();
     const { dispatch } = usePollContext();
+
+    // EDIT POLL FUNCTION
     const handleEdit = (data) => {
         setIsEdit(true);
         setEditData(data);
     }
+    // DELETE POLL FUNCTION
     const handleClick = async () => {
         if (!user) {
             return
@@ -29,7 +32,7 @@ const HomePollDetails = ({ poll, setEditData, setIsEdit }) => {
             dispatch({ type: 'DELETE_POLL', payload: json })
         }
     }
-
+   // SUBMIT POLL VOTE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
         const optionText = selectedOption
@@ -43,6 +46,7 @@ const HomePollDetails = ({ poll, setEditData, setIsEdit }) => {
     const handleChange = (e) => {
         setSelectedOption(e.target.value);
     }
+    // TOTAL VOTE COUNT FUNCTION
     const totalVotes = (eachPoll) => {
         const total = eachPoll.options.reduce((sum, each) => sum + each.vote, 0);
         return total;

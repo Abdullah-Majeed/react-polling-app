@@ -5,6 +5,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, error, isLoading } = useLogin();
+
+  // LOGIN FUNCTION
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password)

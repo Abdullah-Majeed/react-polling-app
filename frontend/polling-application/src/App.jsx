@@ -10,6 +10,7 @@ const App = () => {
   const { user } = useAuthContext();
   return (
     <div className='App'>
+      {/* ROUTES  */}
       <BrowserRouter>
         <Navbar />
         <div className='pages'>

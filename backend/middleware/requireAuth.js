@@ -2,7 +2,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const requireAuth = async (req, res, next) => {
     
-    // GET AUTORIZATION JWT TOKEN FROM FRONTEND
+    // GET AUTHORIZATION JWT TOKEN FROM FRONTEND
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -18,7 +18,7 @@ const requireAuth = async (req, res, next) => {
         // FIND USER FROM DATABASE
         req.user = await User.findOne({ _id }).select('_id');
 
-        // NOW ALLOW USER TO CALL AUTHENTICATED API 
+        // NOW ALLOW USER TO CALL AUTHENTICATED APIS 
         next();
     }
     catch (error) {

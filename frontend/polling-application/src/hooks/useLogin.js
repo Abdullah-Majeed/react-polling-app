@@ -7,7 +7,8 @@ export const useLogin = () => {
     const { dispatch: dispatchPolls } = usePollContext();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-
+    
+    // LOGIN FUNTION 
     const login = async (email, password) => {
         const response = await fetch('http://localhost:4000/api/user/login', {
             method: 'POST',

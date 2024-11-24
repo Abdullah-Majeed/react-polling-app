@@ -8,9 +8,11 @@ const Navbar = () => {
   return (
     <header>
       <div className='container'>
+        {/* LOGO */}
         <Link to="/">
           <h1>Polling App</h1>
         </Link>
+        {/* NAVBAR */}
         <nav>
           {user && (
             <div>

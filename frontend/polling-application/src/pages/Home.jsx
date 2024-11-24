@@ -4,11 +4,15 @@ import { useAuthContext } from '../context/AuthContext';
 import HomePollDetails from '../components/HomePollDetails';
 import PollForm from '../components/PollForm';
 import EditPollForm from '../components/EditPollForm';
+
+// HOME DASHBOARD
 const Home = () => {
   const { polls, dispatch } = usePollContext();
   const { user } = useAuthContext();
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
+
+  // FETCHING USER POLLS DATA
   useEffect(() => {
     const fetchPolls = async () => {
       const response = await fetch('http://localhost:4000/api/polls', {
@@ -25,6 +29,7 @@ const Home = () => {
       fetchPolls();
     }
   }, [dispatch, user, polls])
+  
   return (
     <div className='home'>
       <div className='polls'>
