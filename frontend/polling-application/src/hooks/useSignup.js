@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useAuthContext } from "../context/AuthContext";
+import { usePollContext } from "../context/PollContext";
 
 export const useSignup = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const { dispatch } = useAuthContext();
+    const { dispatch: dispatchPolls } = usePollContext();
 
     // SIGNUP FUNCTION
     const signup = async (email, password) => {
@@ -24,6 +26,7 @@ export const useSignup = () => {
         }
         if (response.ok) {
             localStorage.setItem('user', JSON.stringify(json));
+            dispatchPolls({ type: 'SET_POLLS', payload: null })
             dispatch({ type: 'LOGIN', payload: json });
             setIsLoading(false);
         }

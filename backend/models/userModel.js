@@ -59,7 +59,7 @@ userSchema.statics.login = async function (email, password) {
     }
 
     // USE BCRYPT TO MATCH HASH PASSWORD
-    const match = bcrypt.compare(password, user.password);
+    const match = await bcrypt.compare(password, user.password);
     if (!match) {
         throw Error('Password mismatch');
     }
