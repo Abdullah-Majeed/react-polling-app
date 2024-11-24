@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 const Schema = mongoose.Schema;
+
+// USER SCEHEMA
 const userSchema = new Schema({
     email: {
         type: String,
@@ -15,7 +17,10 @@ const userSchema = new Schema({
     }
 })
 
+// STATIC METHOD OF SIGNUP
 userSchema.statics.signup = async function (email, password) {
+    // VALIDATION CHECKS
+
     if (!email || !password) {
         throw Error("Please add an email or password");
     }
@@ -31,6 +36,7 @@ userSchema.statics.signup = async function (email, password) {
         throw Error("Email already in use");
     }
 
+    // USE BCRYPT TO HASH PASSWORD
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt)
 
@@ -39,15 +45,20 @@ userSchema.statics.signup = async function (email, password) {
 
 
 }
+// STATIC METHOD OF LOGIN
 userSchema.statics.login = async function (email, password) {
+    // VALIDATION CHECKS
+
     if (!email || !password) {
         throw Error('Please add an email or password');
     }
     const user = await this.findOne({ email });
-    
+
     if (!user) {
         throw Error('User not found');
     }
+
+    // USE BCRYPT TO MATCH HASH PASSWORD
     const match = bcrypt.compare(password, user.password);
     if (!match) {
         throw Error('Password mismatch');

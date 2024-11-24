@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// POLL SCHEMA
 const pollSchema = new Schema({
     question: {
         type: String,
@@ -18,8 +19,7 @@ const pollSchema = new Schema({
                 default: 0
             }
         }
-    ]
-    ,
+    ] ,
     image: {
         type: String,
         required: true,
