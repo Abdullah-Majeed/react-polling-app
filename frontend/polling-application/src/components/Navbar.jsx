@@ -9,9 +9,9 @@ const Navbar = () => {
     <header>
       <div className='container'>
         {/* LOGO */}
-        <Link to="/">
+        {/* <Link to="/"> */}
           <h1>Polling App</h1>
-        </Link>
+        {/* </Link> */}
         {/* NAVBAR */}
         <nav>
           {user && (
