@@ -3,36 +3,41 @@ const fs = require('fs');
 const Poll = require('../models/pollModel');
 const mongoose = require('mongoose');
 const tinify = require("tinify");
+
+// TINY PNG API KEY
 tinify.key = process.env.TINIFY_KEY;
 
-// get all polls
+// GET ALL POLLS WITHOUT AUTORIZATION
 const getAllPolls = async (req, res) => {
     const polls = await Poll.find({}).sort({ createdAt: -1 });
     res.status(200).json(polls);
 }
-// get user polls
+
+// GET AUTHENTICATED USER POLL
 const getUserPolls = async (req, res) => {
     const user_id = req.user._id;
     const polls = await Poll.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(polls);
 }
 
+// GET AUTHENTICATED USER SPECIFIC POLL
 const getPoll = async (req, res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "No such poll" })
     }
     const poll = await Poll.findById(id);
-
     if (!poll) {
         return res.status(404).json({ error: "No such poll" })
     }
     res.status(200).json(poll);
 }
 
+// CREATE AUTHENTICATED USER POLL
 const createPoll = async (req, res) => {
     const { question, options, image } = req.body;
     let emptyFields = [];
+    // VALIDATION CHECKS
     if (!question) {
         emptyFields.push('question')
     }
@@ -45,11 +50,13 @@ const createPoll = async (req, res) => {
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
     }
+    // MATCH BASE64 IMAGE FROM FRONTEND
     const matches = image.match(/^data:(.+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {
         return res.status(400).json({ error: 'Invalid poll image.' });
     }
     try {
+        // EXTRACTING METADATA
         const mimeType = matches[1];
         const base64Data = matches[2];
         const fileExtension = mimeType.split('/')[1];
@@ -88,6 +95,7 @@ const createPoll = async (req, res) => {
     }
 }
 
+// DELETE AUTHENTICATED USER POLL
 const deletePoll = async (req, res) => {
     const { id } = req.params;
 
@@ -101,19 +109,22 @@ const deletePoll = async (req, res) => {
     res.status(200).json(poll);
 }
 
+// UPDATE AUTHENTICATED USER POLL
 const updatePoll = async (req, res) => {
     const { id } = req.params;
     const { question, options, image } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'No such poll' });
     }
-    const oldImage = await Poll.findOne({ _id: id }).select('image');
 
+    // COMPARE OLD BASE64 AND NEW BASE64 IMAGE 
+    const oldImage = await Poll.findOne({ _id: id }).select('image');
     if (image !== oldImage) {
         const matches = image.match(/^data:(.+);base64,(.+)$/);
         if (!matches || matches.length !== 3) {
             return res.status(400).json({ error: 'Invalid poll image.' });
         }
+        // EXTRACT METADATA
         const mimeType = matches[1];
         const base64Data = matches[2];
         const fileExtension = mimeType.split('/')[1];
@@ -153,6 +164,8 @@ const updatePoll = async (req, res) => {
     }
 
 }
+
+// UPDATE UNAUTORIZED POLL VOTE
 const updatePollVote = async (req, res) => {
     const { id } = req.params;
     const { optionText } = req.body;
@@ -163,6 +176,7 @@ const updatePollVote = async (req, res) => {
         return res.status(404).json({ error: 'No such poll' });
     }
     try {
+        // INCREMENT VOTE BY 1
         const poll = await Poll.findOneAndUpdate({ _id: id, 'options.text': optionText }, { $inc: { 'options.$.vote': 1 } },         // Increment votes for the matched option
             { new: true })
         if (!poll) {
