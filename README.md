@@ -12,6 +12,7 @@ Before you begin, ensure you have the following installed on your machine:
 - npm (Node Package Manager)
 - MongoDB instance (local or cloud)
 - [TinyPNG API Key](https://tinypng.com/developers)
+- [Visual Studio Code] (https://code.visualstudio.com)
 
 ---
 
@@ -28,6 +29,7 @@ Clone the repository to your local machine:
 ```bash
     cd react-polling-app
     cd backend
+    code .
 ```
 
 ## 2.2 Create .env File in root of backend folder and add these configuration
@@ -55,6 +57,7 @@ Clone the repository to your local machine:
     cd react-polling-app
     cd frontend
     cd polling-application
+    code .
 ```
 ## 3.2 Run command to install packages
 ```bash
